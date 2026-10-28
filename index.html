@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marky Cortezo — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Added html2canvas for capturing the business card -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 /* BASE STYLES & DESIGN SYSTEM */
 *{margin:0;padding:0;box-sizing:border-box}
@@ -256,7 +258,7 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(10,10,10,0.93);b
     </div>
     
     <div class="biz-card-wrapper">
-      <div class="biz-card">
+      <div class="biz-card" id="business-card-element">
         <div class="mac-dots">
           <div class="mac-dot red"></div>
           <div class="mac-dot yellow"></div>
@@ -265,7 +267,8 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(10,10,10,0.93);b
         <div class="biz-card-inner">
           <div class="biz-card-left">
             <div class="biz-card-qr">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://iammarkyiii.github.io/cortezo-portfolio/" alt="QR Code">
+              <!-- crossorigin="anonymous" added to allow html2canvas to fetch external image safely -->
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://iammarkyiii.github.io/cortezo-portfolio/" alt="QR Code" crossorigin="anonymous">
             </div>
           </div>
           <div class="biz-card-right">
@@ -279,7 +282,8 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(10,10,10,0.93);b
           </div>
         </div>
       </div>
-      <a href="#" class="btn-download" download="Marky_Cortezo_Business_Card.jpg">↓ Download Business Card</a>
+      <!-- Changed from static anchor link to a JavaScript triggered function -->
+      <button class="btn-download" onclick="downloadBusinessCard()">↓ Download Business Card</button>
     </div>
   </div>
 </section>
@@ -304,7 +308,7 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(10,10,10,0.93);b
       </p>
     </div>
     <div class="intro-image-wrapper">
-      <img src="aws.jpg" alt="Intro Image" class="intro-image">
+      <img src="intro_image.jpg" alt="Intro Image" class="intro-image">
     </div>
   </div>
 </section>
@@ -332,9 +336,9 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(10,10,10,0.93);b
           <div class="pdf-title">📄 NCII_CSS_Certificate.pdf</div>
           <button class="pdf-download">↓ Download</button>
         </div>
-            </div>
-            <iframe class="pdf-embed" src="CORTEZO_NCII.pdf" title="PDF Preview"></iframe>
-          </div>
+        <div class="pdf-body">
+          📄 Embed PDF Here
+        </div>
       </div>
     </div>
 
@@ -352,9 +356,9 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(10,10,10,0.93);b
           <div class="pdf-title">📄 CISCO_Networking_Basics.pdf</div>
           <button class="pdf-download">↓ Download</button>
         </div>
-            </div>
-            <iframe class="pdf-embed" src="Networking_Basics_certificate_marky-cortezo-gmail-com_1dadcaa5-8ebf-478e-ad5f-df232ef08969.pdf" title="PDF Preview"></iframe>
-          </div>
+        <div class="pdf-body">
+          📄 Embed PDF Here
+        </div>
       </div>
     </div>
 
@@ -372,9 +376,9 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(10,10,10,0.93);b
           <div class="pdf-title">📄 IBM_Cloud_Intro.pdf</div>
           <button class="pdf-download">↓ Download</button>
         </div>
-            </div>
-            <iframe class="pdf-embed" src="CORTEZO_IBM CC0101EN Certificate _ Cognitive Class.pdf" title="PDF Preview"></iframe>
-          </div>
+        <div class="pdf-body">
+          📄 Embed PDF Here
+        </div>
       </div>
     </div>
   </div>
@@ -462,26 +466,26 @@ nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(10,10,10,0.93);b
   <div class="gallery-container">
     <div class="gallery-track">
       <!-- Image Set 1 -->
-      <div class="gallery-item"><img src="001.jpg" alt="Highlight 1"></div>
-      <div class="gallery-item"><img src="002.jpg" alt="Highlight 2"></div>
-      <div class="gallery-item"><img src="003.jpg" alt="Highlight 3"></div>
-      <div class="gallery-item"><img src="004.jpg" alt="Highlight 4"></div>
-      <div class="gallery-item"><img src="005.jpg" alt="Highlight 5"></div>
-      <div class="gallery-item"><img src="006.jpg" alt="Highlight 6"></div>
-      <div class="gallery-item"><img src="007.jpg" alt="Highlight 7"></div>
-      <div class="gallery-item"><img src="008.jpg" alt="Highlight 8"></div>
-      <div class="gallery-item"><img src="009.jpg" alt="Highlight 9"></div>
+      <div class="gallery-item"><img src="64831.jpg" alt="Highlight 1"></div>
+      <div class="gallery-item"><img src="64830.jpg" alt="Highlight 2"></div>
+      <div class="gallery-item"><img src="64829.jpg" alt="Highlight 3"></div>
+      <div class="gallery-item"><img src="64828.jpg" alt="Highlight 4"></div>
+      <div class="gallery-item"><img src="64827.jpg" alt="Highlight 5"></div>
+      <div class="gallery-item"><img src="64052.jpg" alt="Highlight 6"></div>
+      <div class="gallery-item"><img src="64822.jpg" alt="Highlight 7"></div>
+      <div class="gallery-item"><img src="64066.jpg" alt="Highlight 8"></div>
+      <div class="gallery-item"><img src="64819.jpg" alt="Highlight 9"></div>
       
       <!-- Image Set 2 (Duplicated for seamless infinite scroll) -->
-      <div class="gallery-item"><img src="010.jpg" alt="Highlight 1"></div>
-      <div class="gallery-item"><img src="002.jpg" alt="Highlight 2"></div>
-      <div class="gallery-item"><img src="003.jpg" alt="Highlight 3"></div>
-      <div class="gallery-item"><img src="004.jpg" alt="Highlight 4"></div>
-      <div class="gallery-item"><img src="005.jpg" alt="Highlight 5"></div>
-      <div class="gallery-item"><img src="006.jpg" alt="Highlight 6"></div>
-      <div class="gallery-item"><img src="007.jpg" alt="Highlight 7"></div>
-      <div class="gallery-item"><img src="008.jpg" alt="Highlight 8"></div>
-      <div class="gallery-item"><img src="001.jpg" alt="Highlight 9"></div>
+      <div class="gallery-item"><img src="64831.jpg" alt="Highlight 1"></div>
+      <div class="gallery-item"><img src="64830.jpg" alt="Highlight 2"></div>
+      <div class="gallery-item"><img src="64829.jpg" alt="Highlight 3"></div>
+      <div class="gallery-item"><img src="64828.jpg" alt="Highlight 4"></div>
+      <div class="gallery-item"><img src="64827.jpg" alt="Highlight 5"></div>
+      <div class="gallery-item"><img src="64052.jpg" alt="Highlight 6"></div>
+      <div class="gallery-item"><img src="64822.jpg" alt="Highlight 7"></div>
+      <div class="gallery-item"><img src="64066.jpg" alt="Highlight 8"></div>
+      <div class="gallery-item"><img src="64819.jpg" alt="Highlight 9"></div>
     </div>
   </div>
 </section>
@@ -529,6 +533,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sections.forEach((sec) => observer.observe(sec));
 });
+
+// JavaScript to generate and download a working image of the Business Card using html2canvas
+function downloadBusinessCard() {
+  const btn = document.querySelector('.btn-download');
+  const originalText = btn.innerText;
+  btn.innerText = 'Generating...';
+  btn.style.pointerEvents = 'none'; // Prevent double clicking
+  
+  const cardElement = document.getElementById('business-card-element');
+  
+  // Use html2canvas to convert the HTML element to a canvas
+  html2canvas(cardElement, {
+    backgroundColor: '#000000',
+    scale: 3, // High scale for clear text output
+    useCORS: true // Required to render the external API QR code image
+  }).then(canvas => {
+    // Convert the canvas to a Data URL (JPEG format)
+    const imageURL = canvas.toDataURL('image/jpeg', 1.0);
+    
+    // Create an invisible anchor tag to trigger the download
+    const downloadLink = document.createElement('a');
+    downloadLink.href = imageURL;
+    downloadLink.download = 'Marky_Cortezo_Business_Card.jpg';
+    
+    // Trigger download
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    
+    // Reset button
+    btn.innerText = '✓ Downloaded Successfully!';
+    setTimeout(() => {
+      btn.innerText = originalText;
+      btn.style.pointerEvents = 'auto';
+    }, 3000);
+  }).catch(err => {
+    console.error("Failed to generate business card image: ", err);
+    btn.innerText = 'Error! Please try again.';
+    setTimeout(() => {
+      btn.innerText = originalText;
+      btn.style.pointerEvents = 'auto';
+    }, 3000);
+  });
+}
 </script>
 </body>
 </html>
