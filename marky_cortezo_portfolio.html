@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marky Cortezo — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* BASE STYLES & DESIGN SYSTEM */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0a; --bg2:#111111; --bg3:#1a1a1a; --bg4:#222222;
+  --text:#f0ede6; --text2:#999991; --text3:#555550;
+  --accent:#7eb8f7; --accent2:#a8d4ff;
+  --border:#222222; --border2:#2e2e2e;
+  --green:#6fcf8a; --amber:#f0b429;
+}
+html { scroll-behavior: smooth; }
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6;min-height:100vh;overflow-x:hidden}
+
+/* TYPOGRAPHY UTILS */
+.eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--text3);text-transform:uppercase;margin-bottom:1rem;}
+.section-title{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-style:italic;line-height:1.05;margin-bottom:1rem;}
+.section-desc{font-size:14px;color:var(--text2);max-width:50ch;line-height:1.7;}
+
+/* IMAGES */
+.intro-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.org-image {
+  /* Remove display: none to show the images later */
+  display: none;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border);
+}
+
+/* NAVBAR */
+nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(10,10,10,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 3rem;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;color:var(--text2);text-transform:uppercase}
+.nav-links{display:flex}
+.nav-link{padding:0 1.2rem;height:56px;display:flex;align-items:center;font-size:13px;color:var(--text2);text-decoration:none;transition:color 0.2s;border-bottom:2px solid transparent;letter-spacing:0.02em}
+.nav-link:hover, .nav-link.active{color:var(--text);border-bottom-color:var(--accent)}
+
+/* LAYOUT SPACING */
+.section { padding: 6rem 3rem; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid var(--border); }
+.section-header { margin-bottom: 3rem; }
+
+/* 1. HERO SECTION */
+.hero-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 4rem; flex-wrap: wrap; }
+.hero-content { flex: 1; min-width: 300px; }
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(3.5rem,7vw,6.5rem);line-height:1.02;font-style:italic;letter-spacing:-0.02em;margin-bottom:1.5rem;}
+.hero-meta{display:inline-flex;gap:2.5rem;margin-bottom:2.5rem;padding:1rem 2rem;border:1px solid var(--border2);border-radius:50px; flex-wrap: wrap;}
+.meta-item{text-align:center}
+.meta-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;color:var(--text3);text-transform:uppercase;margin-bottom:2px}
+.meta-value{font-size:13px;color:var(--text2)}
+.hero-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 4rem; flex-wrap: wrap; }
+.hero-content { flex: 1; min-width: 300px; }
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(3.5rem,7vw,6.5rem);line-height:1.02;font-style:italic;letter-spacing:-0.02em;margin-bottom:1.5rem;}
+.hero-meta{display:inline-flex;gap:2.5rem;margin-bottom:2.5rem;padding:1rem 2rem;border:1px solid var(--border2);border-radius:50px; flex-wrap: wrap;}
+.meta-item{text-align:center}
+.meta-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;color:var(--text3);text-transform:uppercase;margin-bottom:2px}
+.meta-value{font-size:13px;color:var(--text2)}
+
+/* NEW BUSINESS CARD STYLES */
+.biz-card-wrapper { 
+  display: flex; flex-direction: column; align-items: center; gap: 1rem; 
+  flex-shrink: 0; perspective: 1000px; width: 100%; max-width: 350px;
+}
+.biz-card {
+  background: #000000;
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  width: 100%;
+  aspect-ratio: 1.8 / 1;
+  padding: 1.2rem;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.mac-dots {
+  display: flex; gap: 6px; position: absolute; top: 0.8rem; left: 0.8rem;
+}
+.mac-dot { width: 9px; height: 9px; border-radius: 50%; }
+.mac-dot.red { background: #ff5f56; }
+.mac-dot.yellow { background: #ffbd2e; }
+.mac-dot.green { background: #27c93f; }
+
+.biz-card-inner {
+  display: flex;
+  flex: 1;
+  margin-top: 1rem;
+  align-items: center;
+}
+.biz-card-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 1rem;
+  border-right: 1.5px solid #ffffff;
+  height: 75%;
+}
+.biz-card-qr { background: #fff; padding: 4px; border-radius: 6px; width: 75px; height: 75px; flex-shrink: 0; }
+.biz-card-qr img { width: 100%; height: 100%; display: block; }
+
+.biz-card-right {
+  flex: 1;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+.biz-card-right h2 { font-family: 'DM Sans', sans-serif; font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 0.1rem; line-height: 1.2; letter-spacing: -0.02em; }
+.biz-card-right .role { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 300; color: #dddddd; margin-bottom: 1.2rem; }
+.biz-card-right .contact-info { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 300; color: #ffffff; line-height: 1.7; }
+
+.btn-download {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--accent); color: var(--bg); padding: 12px 28px; border-radius: 50px;
+  font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer;
+}
+.btn-download:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(126, 184, 247, 0.2); }
+
+/* 2. INTRODUCTION SECTION */
+.intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.intro-text { font-size: 15px; color: var(--text2); line-height: 1.8; }
+.intro-image-wrapper { width: 100%; height: 400px; }
+
+/* 3. CERTIFICATIONS SECTION */
+.cert-cards { display: flex; flex-direction: column; gap: 3rem; }
+.cert-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; }
+.cert-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 2rem; }
+.cert-icon { width: 40px; height: 40px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent); flex-shrink: 0; }
+.cert-info h3 { font-size: 1.2rem; font-weight: 500; margin-bottom: 0.2rem; }
+.cert-info p { font-size: 13px; color: var(--text2); font-family: 'DM Mono', monospace; }
+/* PDF Viewer Placeholder */
+.pdf-viewer { border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; background: var(--bg3); }
+.pdf-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border2); background: var(--bg2); }
+.pdf-title { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); display: flex; align-items: center; gap: 8px; }
+.pdf-download { background: transparent; border: 1px solid var(--border2); color: var(--text2); padding: 5px 12px; border-radius: 4px; font-size: 10px; cursor: pointer; font-family: 'DM Mono', monospace; transition: all 0.2s; }
+.pdf-download:hover { color: var(--text); border-color: var(--text3); }
+.pdf-body { height: 300px; border: none; border-radius: 0; display: flex; align-items: center; justify-content: center; color: var(--text3); font-family: 'DM Mono', monospace; font-size: 12px; }
+
+/* 4. ORGANIZATIONS SECTION */
+.org-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.org-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, border-color 0.2s; }
+.org-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+.org-card-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+.org-role { font-size: 1.1rem; font-weight: 500; margin-bottom: 0.5rem; line-height: 1.4; }
+.org-org { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 1rem; }
+.org-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); margin-top: auto; }
+
+/* 5. GALLERY SECTION */
+.gallery-container {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  display: flex;
+  padding: 1rem 0;
+}
+.gallery-track {
+  display: flex;
+  gap: 20px;
+  padding: 0 10px;
+  animation: scrollLeft 35s linear infinite;
+  width: max-content;
+}
+.gallery-track:hover { animation-play-state: paused; }
+.gallery-item {
+  width: 350px;
+  height: 250px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--border2);
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  filter: grayscale(40%) brightness(0.8);
+}
+.gallery-item:hover img {
+  transform: scale(1.05);
+  filter: grayscale(0%) brightness(1);
+}
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } 
+}
+
+/* 6. CONTACT SECTION */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px; margin-top: 2rem;}
+.contact-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.5rem;}
+.contact-card-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
+.contact-card-value{font-size:14px;color:var(--text)}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .intro-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .intro-image-wrapper { height: 300px; }
+  .hero-wrapper { flex-direction: column; text-align: center; }
+  .biz-card-wrapper { width: 100%; max-width: 350px; margin: 0 auto; }
+}
+@media (max-width: 600px) {
+  nav { padding: 0 1rem; justify-content: center; }
+  .nav-links { display: none; }
+  .section { padding: 5rem 1.5rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .meta-item { text-align: left; }
+  .hero-meta { flex-direction: column; gap: 1rem; align-items: center; }
+  
+  .biz-card-wrapper { max-width: 320px; }
+  .biz-card-left { padding-right: 0.8rem; }
+  .biz-card-right { padding-left: 0.8rem; }
+  .biz-card-qr { width: 65px; height: 65px; }
+  .biz-card-right h2 { font-size: 1rem; }
+  .biz-card-right .role { font-size: 0.7rem; margin-bottom: 1rem; }
+  .biz-card-right .contact-info { font-size: 0.6rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Marky Cortezo</div>
+  <div class="nav-links">
+    <a href="#home" class="nav-link active">Home</a>
+    <a href="#intro" class="nav-link">About</a>
+    <a href="#certifications" class="nav-link">Certifications</a>
+    <a href="#organizations" class="nav-link">Organizations</a>
+    <a href="#gallery" class="nav-link">Gallery</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </div>
+</nav>
+
+<!-- 1. HOME SECTION -->
+<section id="home" class="section">
+  <div class="hero-wrapper">
+    <div class="hero-content">
+      <div class="eyebrow">IT Professional & Tech Organizer</div>
+      <div class="hero-title">Marky Cortezo.</div>
+      <div class="hero-meta">
+        <div class="meta-item"><div class="meta-label">Programming Language</div><div class="meta-value">Python PHP SQL Java</div></div>
+        <div class="meta-item"><div class="meta-label">Location</div><div class="meta-value">Quezon City, Philippines</div></div>
+      </div>
+    </div>
+    
+    <div class="biz-card-wrapper">
+      <div class="biz-card">
+        <div class="mac-dots">
+          <div class="mac-dot red"></div>
+          <div class="mac-dot yellow"></div>
+          <div class="mac-dot green"></div>
+        </div>
+        <div class="biz-card-inner">
+          <div class="biz-card-left">
+            <div class="biz-card-qr">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=Marky+Cortezo+Contact+Card" alt="QR Code">
+            </div>
+          </div>
+          <div class="biz-card-right">
+            <h2>Marky Cortezo</h2>
+            <div class="role">Developer</div>
+            <div class="contact-info">
+              <div>0943 370 3633</div>
+              <div>marky.cortezo@gmail.com</div>
+              <div>Quezon city, Metro Manila</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="btn-download" download="Marky_Cortezo_Business_Card.jpg">↓ Download Business Card</a>
+    </div>
+  </div>
+</section>
+
+<!-- 2. INTRODUCTION SECTION -->
+<section id="intro" class="section">
+  <div class="section-header">
+    <div class="eyebrow">About Me</div>
+    <div class="section-title">Introduction.</div>
+  </div>
+  
+  <div class="intro-grid">
+    <div class="intro-text">
+      <p style="margin-bottom: 1.5rem;">
+        Hello! I am Marky, a passionate IT student and tech professional. I bridge the gap between quality software development and vibrant tech communities.
+      </p>
+      <p style="margin-bottom: 1.5rem;">
+        I actively participate in and organize numerous tech events, both inside and outside the Polytechnic University of the Philippines. My goal is to foster collaborative environments where developers, designers, and tech enthusiasts can learn and grow together.
+      </p>
+      <p>
+        Whether I am testing applications for seamless user experiences, managing compliance, or leading digital marketing campaigns, I bring dedication and a systematic approach to every project I touch.
+      </p>
+    </div>
+    <div class="intro-image-wrapper">
+      <img src="aws.jpg" alt="Intro Image" class="intro-image">
+    </div>
+  </div>
+</section>
+
+<!-- 3. CERTIFICATIONS SECTION -->
+<section id="certifications" class="section">
+  <div class="section-header">
+    <div class="eyebrow">Credentials</div>
+    <div class="section-title">Certifications.</div>
+    <div class="section-desc">Official recognition of my technical proficiencies and skills.</div>
+  </div>
+
+  <div class="cert-cards">
+    <!-- Cert 1 -->
+    <div class="cert-card">
+      <div class="cert-header">
+        <div class="cert-icon">01</div>
+        <div class="cert-info">
+          <h3>NCII - CSS Holder</h3>
+          <p>Computer Systems Servicing Certification</p>
+        </div>
+      </div>
+      <div class="pdf-viewer">
+        <div class="pdf-header">
+          <div class="pdf-title">📄 NCII_CSS_Certificate.pdf</div>
+          <button class="pdf-download">↓ Download</button>
+        </div>
+            </div>
+            <iframe class="pdf-embed" src="CORTEZO_NCII.pdf" title="PDF Preview"></iframe>
+          </div>
+      </div>
+    </div>
+
+    <!-- Cert 2 -->
+    <div class="cert-card">
+      <div class="cert-header">
+        <div class="cert-icon">02</div>
+        <div class="cert-info">
+          <h3>CISCO Networking Basics</h3>
+          <p>Cisco Networking Academy</p>
+        </div>
+      </div>
+      <div class="pdf-viewer">
+        <div class="pdf-header">
+          <div class="pdf-title">📄 CISCO_Networking_Basics.pdf</div>
+          <button class="pdf-download">↓ Download</button>
+        </div>
+            </div>
+            <iframe class="pdf-embed" src="Networking_Basics_certificate_marky-cortezo-gmail-com_1dadcaa5-8ebf-478e-ad5f-df232ef08969.pdf" title="PDF Preview"></iframe>
+          </div>
+      </div>
+    </div>
+
+    <!-- Cert 3 -->
+    <div class="cert-card">
+      <div class="cert-header">
+        <div class="cert-icon">03</div>
+        <div class="cert-info">
+          <h3>IBM Skills Network</h3>
+          <p>Introduction to Cloud</p>
+        </div>
+      </div>
+      <div class="pdf-viewer">
+        <div class="pdf-header">
+          <div class="pdf-title">📄 IBM_Cloud_Intro.pdf</div>
+          <button class="pdf-download">↓ Download</button>
+        </div>
+            </div>
+            <iframe class="pdf-embed" src="CORTEZO_IBM CC0101EN Certificate _ Cognitive Class.pdf" title="PDF Preview"></iframe>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. ORGANIZATIONS SECTION -->
+<section id="organizations" class="section">
+  <div class="section-header">
+    <div class="eyebrow">Leadership & Community</div>
+    <div class="section-title">Organizations.</div>
+    <div class="section-desc">My involvement and leadership roles across various technical and professional organizations.</div>
+  </div>
+
+  <div class="org-grid">
+    <!-- Org 1 -->
+    <div class="org-card">
+      <img src="gdg_pup.jpg" alt="GDG PUP" class="org-image">
+      <div class="org-card-content">
+        <div>
+          <div class="org-org">GDG PUP</div>
+          <div class="org-role">Partnerships Compliance Associate</div>
+        </div>
+        <div class="org-date">2024 - 2025</div>
+      </div>
+    </div>
+
+    <!-- Org 2 -->
+    <div class="org-card">
+      <img src="gdg_content.jpg" alt="GDG PUP" class="org-image">
+      <div class="org-card-content">
+        <div>
+          <div class="org-org">GDG PUP</div>
+          <div class="org-role">Content Creation Lead</div>
+        </div>
+        <div class="org-date">2025 - 2026</div>
+      </div>
+    </div>
+
+    <!-- Org 3 -->
+    <div class="org-card">
+      <img src="cybersec.jpg" alt="GDG PUP" class="org-image">
+      <div class="org-card-content">
+        <div>
+          <div class="org-org">GDG PUP</div>
+          <div class="org-role">Cybersecurity Cadet</div>
+        </div>
+        <div class="org-date">2024 - Present</div>
+      </div>
+    </div>
+
+    <!-- Org 4 -->
+    <div class="org-card">
+      <img src="aws.jpg" alt="AWS PUP" class="org-image">
+      <div class="org-card-content">
+        <div>
+          <div class="org-org">AWS PUP</div>
+          <div class="org-role">Active Member</div>
+        </div>
+        <div class="org-date">2024 - Present</div>
+      </div>
+    </div>
+
+    <!-- Org 5 -->
+    <div class="org-card">
+      <img src="ark.jpg" alt="ARK PH" class="org-image">
+      <div class="org-card-content">
+        <div>
+          <div class="org-org">ARK PH</div>
+          <div class="org-role">Marketing Head</div>
+        </div>
+        <div class="org-date">2026 - Present</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. GALLERY SECTION -->
+<section id="gallery" class="section">
+  <div class="section-header">
+    <div class="eyebrow">Community & Life</div>
+    <div class="section-title">Event Highlights.</div>
+    <div class="section-desc">Snapshots from hackathons, tech meetups, and community gatherings inside and outside PUP.</div>
+  </div>
+  
+  <div class="gallery-container">
+    <div class="gallery-track">
+      <!-- Image Set 1 -->
+      <div class="gallery-item"><img src="001.jpg" alt="Highlight 1"></div>
+      <div class="gallery-item"><img src="002.jpg" alt="Highlight 2"></div>
+      <div class="gallery-item"><img src="003.jpg" alt="Highlight 3"></div>
+      <div class="gallery-item"><img src="004.jpg" alt="Highlight 4"></div>
+      <div class="gallery-item"><img src="005.jpg" alt="Highlight 5"></div>
+      <div class="gallery-item"><img src="006.jpg" alt="Highlight 6"></div>
+      <div class="gallery-item"><img src="007.jpg" alt="Highlight 7"></div>
+      <div class="gallery-item"><img src="008.jpg" alt="Highlight 8"></div>
+      <div class="gallery-item"><img src="009.jpg" alt="Highlight 9"></div>
+      
+      <!-- Image Set 2 (Duplicated for seamless infinite scroll) -->
+      <div class="gallery-item"><img src="010.jpg" alt="Highlight 1"></div>
+      <div class="gallery-item"><img src="002.jpg" alt="Highlight 2"></div>
+      <div class="gallery-item"><img src="003.jpg" alt="Highlight 3"></div>
+      <div class="gallery-item"><img src="004.jpg" alt="Highlight 4"></div>
+      <div class="gallery-item"><img src="005.jpg" alt="Highlight 5"></div>
+      <div class="gallery-item"><img src="006.jpg" alt="Highlight 6"></div>
+      <div class="gallery-item"><img src="007.jpg" alt="Highlight 7"></div>
+      <div class="gallery-item"><img src="008.jpg" alt="Highlight 8"></div>
+      <div class="gallery-item"><img src="001.jpg" alt="Highlight 9"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. CONTACT SECTION -->
+<section id="contact" class="section" style="border-bottom: none;">
+  <div class="section-header">
+    <div class="eyebrow">Get in touch</div>
+    <div class="section-title">Contact.</div>
+  </div>
+  
+  <div class="contact-grid">
+    <div class="contact-card"><div class="contact-card-label">Full Name</div><div class="contact-card-value">Marky Cortezo</div></div>
+    <div class="contact-card"><div class="contact-card-label">Location</div><div class="contact-card-value">Quezon City, Philippines</div></div>
+    <div class="contact-card"><div class="contact-card-label">School</div><div class="contact-card-value">Polytechnic University of the Philippines</div></div>
+    <div class="contact-card"><div class="contact-card-label">Role</div><div class="contact-card-value">QA Tester & Tech Organizer</div></div>
+    <div class="contact-card" style="grid-column:1/-1"><div class="contact-card-label">Email</div><div class="contact-card-value" style="color:var(--accent)">markygcortezo@iskolarngbayan.pup.edu.ph</div></div>
+  </div>
+</section>
+
+<script>
+// Active Nav Link highlighting on scroll
+document.addEventListener("DOMContentLoaded", () => {
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".nav-link");
+
+  const observerOptions = {
+    root: null,
+    rootMargin: "-20% 0px -60% 0px", // triggers when section is in the middle of viewport
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === "#" + entry.target.id) {
+            link.classList.add("active");
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((sec) => observer.observe(sec));
+});
+</script>
+</body>
+</html>
